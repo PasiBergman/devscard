@@ -11,10 +11,10 @@ const config = {
     },
   },
   meta: {
-    title: 'Mark Freeman - Senior React Developer',
+    title: 'Pasi Bergman - Cloud Solutions Architect',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ac dui at vestibulum. In condimentum metus id dui tincidunt, in blandit mi vehicula.',
-    faviconPath: '/src/assets/my-image.jpeg',
+      'I am a Cloud Solutions Architect and a full-stack web developer with a passion for building scalable and reliable cloud solutions. I have a strong background in software development and I am always looking for new challenges.',
+    faviconPath: '/src/assets/pasi-gh.jpeg',
   },
   pdf: {
     footer:

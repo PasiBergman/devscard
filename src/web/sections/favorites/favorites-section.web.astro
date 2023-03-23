@@ -15,9 +15,6 @@ const { config, books, medias, people, videos } = Astro.props;
 
 <SectionCard {...config}>
   <div class="flex flex-col gap-16">
-    <FavoritesSubSection minTileWidth={160} subSection={books}>
-      {books?.data.map((book) => <BookTile {...book} />)}
-    </FavoritesSubSection>
     <FavoritesSubSection minTileWidth={120} subSection={people}>
       {people?.data.map((person) => <PersonTile {...person} />)}
     </FavoritesSubSection>
@@ -26,6 +23,9 @@ const { config, books, medias, people, videos } = Astro.props;
     </FavoritesSubSection>
     <FavoritesSubSection minTileWidth={120} subSection={medias}>
       {medias?.data.map((media) => <MediaTile {...media} />)}
+    </FavoritesSubSection>
+    <FavoritesSubSection minTileWidth={160} subSection={books}>
+      {books?.data.map((book) => <BookTile {...book} />)}
     </FavoritesSubSection>
   </div>
 </SectionCard>

@@ -1,19 +1,7 @@
 import type { ExperienceSection } from '@/types/sections/experience-section.types';
 import type { ReadonlyDeep } from 'type-fest';
 import { facebook, github, instagram, linkedin, twitter, website } from '../helpers/links';
-import {
-  chakraUi,
-  eslint,
-  firebase,
-  nextJs,
-  nx,
-  pnpm,
-  react,
-  reactQuery,
-  tailwindCss,
-  typescript,
-  vue,
-} from '../helpers/skills';
+import { eslint, firebase, nextJs, nx, pnpm, react, reactQuery, tailwindCss, typescript, vue } from '../helpers/skills';
 
 const experienceSectionData = {
   config: {
@@ -24,59 +12,66 @@ const experienceSectionData = {
   },
   jobs: [
     {
-      role: 'Senior front-end developer',
-      company: 'Google',
-      image: import('@/assets/logos/google-logo.jpg'),
-      dates: [new Date('2020-02'), null],
+      role: 'Cloud Solutions Architect, Full Stack Developer',
+      company: 'HiQ Finland',
+      image: import('@/assets/logos/hiq.jpeg'),
+      dates: [new Date('2015-08'), null],
       description: `
-        - In tristique vulputate augue vel egestas.
-        - Quisque ac imperdiet tortor, at lacinia ex.
-        - Duis vel ex hendrerit, commodo odio sed, aliquam enim.
-        - Ut arcu nulla, tincidunt eget arcu eget, molestie vulputate nisi.
-        - Nunc malesuada leo et est iaculis facilisis.
-        - Fusce eu urna ut magna malesuada fringilla.
+        - Cloud solutions architect
+        - Full stack web developer
       `,
       tagsList: {
         title: 'Technologies',
-        tags: [react(), nextJs(), typescript(), nx(), firebase()],
+        tags: [],
       },
-      links: [facebook({ url: '#' }), linkedin({ url: '#' })],
+      links: [],
     },
     {
-      role: 'React.js developer',
-      company: 'Facebook',
-      image: import('@/assets/logos/facebook-logo.png'),
-      dates: [new Date('2019-04'), new Date('2020-02')],
+      role: 'Technology Lead, Enterprise Architect',
+      company: 'HiQ Finland',
+      image: import('@/assets/logos/hiq.jpeg'),
+      dates: [new Date('2010-05'), new Date('2015-08')],
       description: `
-        - Aenean eget ultricies felis. Pellentesque dictum massa ut tellus eleifend, sed posuere massa mattis.
-        - Ut posuere massa lacus, eleifend molestie tortor auctor vel.
-        - Sed sed sollicitudin eros, id ultricies mi. Aliquam sodales elit vel ante tempor, non vehicula nibh facilisis.
-        - Cras feugiat ultricies maximus. Aliquam tristique ex odio, ac semper urna accumsan a.
+        - Business area techology lead, enterprise architect
+        - Solutions architect
+        - Full stack web developer
       `,
       tagsList: {
         title: 'Technologies',
-        tags: [react(), reactQuery(), chakraUi(), eslint()],
+        tags: [],
       },
-      links: [website({ url: '#' }), instagram({ url: '#' })],
+      links: [],
     },
     {
-      role: 'Junior front-end developer',
-      company: 'GitLab',
-      image: import('@/assets/logos/gitlab-logo.png'),
-      dates: [new Date('2016-09'), new Date('2019-04')],
+      role: 'Partner Manager, Business development',
+      company: 'HiQ Finland',
+      image: import('@/assets/logos/hiq.jpeg'),
+      dates: [new Date('2007-09'), new Date('2010-05')],
       description: `
-        Nulla volutpat justo ante, rhoncus posuere massa egestas in:
-
-        - Quisque pellentesque, dolor nec sollicitudin iaculis, sem velit consequat ligula, eget tempus ligula leo et est.
-        - Maecenas ut elit sit amet nibh maximus condimentum in nec lorem. Pellentesque tincidunt odio vel leo suscipit, in interdum mi gravida.
-
-        Donec non vulputate augue 🤓
+        - Business development
+        - Sales
+        - Solution architecture
       `,
       tagsList: {
         title: 'Technologies',
-        tags: [vue(), tailwindCss(), pnpm()],
+        tags: [],
       },
-      links: [twitter({ url: '#' }), github({ url: '#' })],
+      links: [],
+    },
+    {
+      role: 'Project manager, developer',
+      company: 'HiQ Finland',
+      image: import('@/assets/logos/hiq.jpeg'),
+      dates: [new Date('2000-03'), new Date('2007-09')],
+      description: `
+        - Project management
+        - Backend developer
+      `,
+      tagsList: {
+        title: 'Technologies',
+        tags: [],
+      },
+      links: [],
     },
   ],
 } as const satisfies ReadonlyDeep<ExperienceSection>;

@@ -10,6 +10,7 @@ const testimonialsSectionData = {
     visible: true,
   },
   testimonials: [
+    /*
     {
       image: import('@/assets/testimonials/testimonial-1.jpeg'),
       author: 'Howard Stewart',
@@ -34,6 +35,7 @@ const testimonialsSectionData = {
         'Mauris tincidunt at purus vehicula porta. Mauris eget mollis turpis. Sed iaculis rutrum pharetra. Vivamus risus quam, suscipit et semper ut, aliquet ut tellus. Donec quis auctor nunc.',
       links: [github({ url: '#' }), website({ url: '#' })],
     },
+    */
   ],
 } as const satisfies ReadonlyDeep<TestimonialsSection>;
 

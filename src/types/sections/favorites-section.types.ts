@@ -108,11 +108,6 @@ export interface SubSection<Data = unknown> {
 
 export interface FavoritesSection extends Section {
   /**
-   * [WEB] List of your favorite books.
-   */
-  books?: SubSection<Book>;
-
-  /**
    * [WEB] List of the people that inspire you.
    */
   people?: SubSection<Person>;
@@ -126,4 +121,8 @@ export interface FavoritesSection extends Section {
    * [WEB] List of other media types that helps you to growth in your field.
    */
   medias?: SubSection<Media>;
+  /**
+   * [WEB] List of your favorite books.
+   */
+  books?: SubSection<Book>;
 }
