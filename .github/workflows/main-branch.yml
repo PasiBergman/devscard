@@ -38,8 +38,8 @@ jobs:
         run: npm ci
       - name: Run Astro build command
         run: npm run build
-      # - name: Generate CV PDF
-      #   run: npm run generate-pdf
+      - name: Generate CV PDF
+        run: npm run generate-pdf
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
