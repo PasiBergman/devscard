@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  prettier:
-    name: Run Prettier check
+  checks:
+    name: Run checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,42 +18,16 @@ jobs:
         run: npm ci
       - name: Run Prettier
         run: npm run prettier:check
-
-  typescript:
-    name: Run TypeScript check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
       - name: Run TypeScript types check
         run: npm run ts:check
-
-  astro:
-    name: Run Astro check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
       - name: Run Astro check
         run: npm run astro:check
 
   deploy:
-    name: Deploy to Netlify
-    needs: [prettier, typescript, astro]
+    name: Deploy to server
+    needs: [checks]
     if: github.repository == 'PasiBergman/devscard'
     runs-on: ubuntu-latest
-    outputs:
-      deploy-url: ${{ steps.netlify.outputs.deploy-url }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -81,6 +55,6 @@ jobs:
         shell: bash
         env:
           SSH_KEY_PATH: ${{ github.workspace }}/../private.key
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
