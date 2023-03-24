@@ -50,7 +50,7 @@ jobs:
   deploy:
     name: Deploy to Netlify
     needs: [prettier, typescript, astro]
-    if: github.repository == 'KonradSzwarc/devscard'
+    if: github.repository == 'PasiBergman/devscard'
     runs-on: ubuntu-latest
     outputs:
       deploy-url: ${{ steps.netlify.outputs.deploy-url }}
@@ -62,75 +62,25 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Generate CV PDF
+        run: npm run generate-pdf
       - name: Run Astro build command
         run: npm run build
-      - name: Deploy to Netlify
-        id: netlify
-        uses: nwtgck/actions-netlify@v2
-        with:
-          publish-dir: dist
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          production-deploy: true
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ../private.key
+          sudo chmod 600 ../private.key
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        shell: bash
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
-
-  percy:
-    name: Run Percy check
-    if: github.repository == 'KonradSzwarc/devscard'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Run Astro build command
-        run: npm run build
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+      - name: Deploy with SCP
+        run: scp -i "${SSH_KEY_PATH}" -r ./dist/* "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PATH}"
+        shell: bash
         env:
-          PUBLIC_APP_ENV: snapshot
-      - name: Percy check
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-        run: npx percy snapshot dist/
-
-  lighthouse:
-    name: Run Lighthouse check
-    if: github.repository == 'KonradSzwarc/devscard'
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Lighthouse check
-        uses: foo-software/lighthouse-check-action@master
-        with:
-          urls: ${{ needs.deploy.outputs.deploy-url }}
-          device: all
-
-  release:
-    name: Create release
-    if: github.repository == 'KonradSzwarc/devscard'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v3
-      - name: Get project information
-        id: projectinfo
-        uses: gregoranders/nodejs-project-info@v0.0.19
-      - name: Get changelog entries
-        id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2
-        with:
-          version: ${{ steps.projectinfo.outputs.version }}
-      - name: Create a new tag and release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.changelog_reader.outputs.version }}
-          name: Release ${{ steps.changelog_reader.outputs.version }}
-          body: ${{ steps.changelog_reader.outputs.changes }}
-          allowUpdates: true
+          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
