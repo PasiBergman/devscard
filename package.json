@@ -4,7 +4,7 @@
   "version": "0.1.1",
   "private": true,
   "engines": {
-    "node": ">=14",
+    "node": ">=16",
     "npm": ">=6",
     "yarn": "please-use-npm",
     "pnpm": "please-use-npm"
